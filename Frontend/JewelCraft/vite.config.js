@@ -15,6 +15,8 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 5173,
+    // Fail instead of silently moving to 5174 when an old dev server is still running.
+    strictPort: true,
     proxy: {
       '/api': backend,
       '/uploads': backend,

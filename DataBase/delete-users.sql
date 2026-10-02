@@ -1,7 +1,7 @@
 -- =====================================================================
 -- Permanently deletes two customer accounts and everything linked to them:
---   anilnayak9969@gmail.com   (users.id 7)
---   capricorn28002@gmail.com  (users.id 14)
+--   anilnayak9969@gmail.com   (users.id 16)
+--   capricorn28002@gmail.com  (users.id 15)
 --
 -- Removes: orders (+ items, payments, deliveries, tracking), addresses, cart,
 -- wishlist, reviews, customer requests, profiles and email OTPs.
@@ -48,6 +48,7 @@ DELETE FROM wishlist       WHERE user_id IN (@u1, @u2);
 
 -- 5) Everything else tied to the user
 UPDATE customer_requests SET handled_by = NULL WHERE handled_by IN (@u1, @u2);
+DELETE FROM deliveries WHERE delivery_partner_id IN (@u1, @u2);
 DELETE FROM reviews                   WHERE user_id IN (@u1, @u2);
 DELETE FROM addresses                 WHERE user_id IN (@u1, @u2);
 DELETE FROM customer_profiles         WHERE user_id IN (@u1, @u2);
